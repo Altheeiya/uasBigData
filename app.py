@@ -77,8 +77,8 @@ def predict_sentiment(text):
     clean  = preprocess_text(text)
     vector = tfidf.transform([clean])
     result = model.predict(vector)[0]
-    proba  = model.predict_proba(vector)[0] if hasattr(model, "predict_proba") else None
-    return result, clean, proba
+    return result, clean, None
+
 
 # ─────────────────────────────────────
 # SIDEBAR
