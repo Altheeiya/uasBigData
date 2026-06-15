@@ -85,18 +85,18 @@ def predict_sentiment(text):
 # ─────────────────────────────────────
 with st.sidebar:
     st.image("https://img.icons8.com/color/96/shopping-cart.png", width=80)
-    st.title(" Navigasi")
+    st.title("Navigasi")
     page = st.radio(
         "Pilih Halaman:",
-        [" Dashboard", " Prediksi Sentimen", " Analisis Komparatif",
-         " Performa Model", " Dataset Preview"]
+        ["Dashboard", "Prediksi Sentimen", "Analisis Komparatif",
+         "Performa Model", "Dataset Preview"]
     )
     
 # ─────────────────────────────────────
 # HALAMAN: DASHBOARD
 # ─────────────────────────────────────
-if page == " Dashboard":
-    st.title(" Analisis Sentimen: Shopee vs Tokopedia")
+if page == "Dashboard":
+    st.title("Analisis Sentimen: Shopee vs Tokopedia")
     st.markdown("Analisis sentimen ulasan pengguna menggunakan **SVM + TF-IDF**")
 
     col1, col2, col3, col4 = st.columns(4)
@@ -134,11 +134,21 @@ if page == " Dashboard":
         ax.grid(axis='y', alpha=0.4)
         st.pyplot(fig, use_container_width=True)
 
+    st.markdown("---")
+    st.subheader("Alur Project")
+    st.markdown("""
+    1. **Pengumpulan Data**: Mengambil data ulasan pengguna aplikasi Shopee dan Tokopedia dari Google Play Store (Kaggle), dengan total 5.000 ulasan.
+    2. **Data Cleaning (Preprocessing)**: Membersihkan data melalui proses *Case Folding*, *Cleansing* (menghapus tanda baca/angka/simbol), Normalisasi Karakter & Kata Slang, dan *Stopword Removal*.
+    3. **Exploratory Data Analysis (EDA)**: Mengeksplorasi distribusi label sentimen yang didominasi sentimen Positif, serta melakukan visualisasi teks ulasan menggunakan *WordCloud*.
+    4. **Pemodelan & Pelatihan (Modeling & Training)**: Merepresentasikan teks dengan vektor TF-IDF (maksimal 5.000 fitur, *bigram*), menyeimbangkan *class imbalance* pada *Training Set* dengan SMOTE, dan melatih model klasifikasi menggunakan algoritma *Support Vector Machine* (SVM) *kernel linear* dengan C=10.
+    5. **Evaluasi**: Mengevaluasi model prediksi pada *Validation Set* dan *Test Set* menggunakan *Confusion Matrix* dan *Classification Report*, mendapatkan akurasi yang sehat sebesar ~80.15% pada *Test Set*.
+    """)
+
 # ─────────────────────────────────────
 # HALAMAN: PREDIKSI SENTIMEN
 # ─────────────────────────────────────
-elif page == " Prediksi Sentimen":
-    st.title(" Prediksi Sentimen Ulasan")
+elif page == "Prediksi Sentimen":
+    st.title("Prediksi Sentimen Ulasan")
     st.markdown("Masukkan ulasan produk, model akan memprediksi sentimennya.")
 
     platform_sel = st.selectbox("Platform:", ["Shopee", "Tokopedia", "Lainnya"])
@@ -149,9 +159,8 @@ elif page == " Prediksi Sentimen":
     if st.button(" Prediksi", type="primary", use_container_width=True):
         if user_input.strip():
             sentiment, clean_text, proba = predict_sentiment(user_input)
-            emoji_map = {'Positif': '', 'Netral': '', 'Negatif': ''}
             color_map = {'Positif': 'green',   'Netral': 'orange', 'Negatif': 'red'}
-            st.markdown(f"### Hasil: :{color_map[sentiment]}[{emoji_map[sentiment]} {sentiment}]")
+            st.markdown(f"### Hasil: :{color_map[sentiment]}[{sentiment}]")
             with st.expander("Detail Preprocessing"):
                 col1, col2 = st.columns(2)
                 col1.markdown(f"**Teks Asli:**\n> {user_input}")
@@ -162,8 +171,8 @@ elif page == " Prediksi Sentimen":
 # ─────────────────────────────────────
 # HALAMAN: ANALISIS KOMPARATIF
 # ─────────────────────────────────────
-elif page == " Analisis Komparatif":
-    st.title(" Analisis Komparatif: Shopee vs Tokopedia")
+elif page == "Analisis Komparatif":
+    st.title("Analisis Komparatif: Shopee vs Tokopedia")
     st.dataframe(comparative_data.style.background_gradient(cmap='RdYlGn'), use_container_width=True)
     st.markdown("---")
     st.subheader("Distribusi Sentimen (%)")
@@ -172,8 +181,8 @@ elif page == " Analisis Komparatif":
 # ─────────────────────────────────────
 # HALAMAN: PERFORMA MODEL
 # ─────────────────────────────────────
-elif page == " Performa Model":
-    st.title(" Performa Model SVM")
+elif page == "Performa Model":
+    st.title("Performa Model SVM")
 
     col1, col2 = st.columns(2)
     col1.metric("Akurasi Validation", f"{metadata['val_accuracy']*100:.2f}%")
@@ -196,8 +205,8 @@ elif page == " Performa Model":
 # ─────────────────────────────────────
 # HALAMAN: DATASET PREVIEW
 # ─────────────────────────────────────
-elif page == " Dataset Preview":
-    st.title(" Preview Dataset")
+elif page == "Dataset Preview":
+    st.title("Preview Dataset")
     filter_platform  = st.selectbox("Filter Platform:",  ["Semua"] + list(sample_data['platform'].unique()))
     filter_sentiment = st.selectbox("Filter Sentimen:", ["Semua"] + ["Positif", "Netral", "Negatif"])
 
