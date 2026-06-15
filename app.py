@@ -91,12 +91,7 @@ with st.sidebar:
         [" Dashboard", " Prediksi Sentimen", " Analisis Komparatif",
          " Performa Model", " Dataset Preview"]
     )
-    st.markdown("---")
-    st.markdown("**Informasi Model:**")
-    st.markdown(f"- Model: SVM")
-    st.markdown(f"- Akurasi Test: **{metadata['test_accuracy']*100:.2f}%**")
-    st.markdown(f"- Fitur TF-IDF: {metadata['total_features']:,}")
-
+    
 # ─────────────────────────────────────
 # HALAMAN: DASHBOARD
 # ─────────────────────────────────────
