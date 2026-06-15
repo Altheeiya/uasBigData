@@ -104,7 +104,7 @@ if page == " Dashboard":
     col1.metric("Total Ulasan",    f"{int(total):,}")
     col2.metric("Akurasi Test",    f"{metadata['test_accuracy']*100:.2f}%")
     col3.metric("Akurasi Val",     f"{metadata['val_accuracy']*100:.2f}%")
-    col4.metric("Fitur TF-IDF",    f"{metadata['total_features']:,}")
+    
 
     st.markdown("---")
     col1, col2 = st.columns(2)
